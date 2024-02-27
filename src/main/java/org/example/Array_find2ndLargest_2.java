@@ -1,83 +1,87 @@
 package org.example;
 
 // considering distinct element in array
-public class Array_find2ndLargest {
+public class Array_find2ndLargest_2 {
 
     public static int[] getSecondOrderElements(int n, int []a) {
-        // Write your code here.
 
-        int l=0; int r=n-1;
-        mergesort(a,l,r);
-        int output[]= new int[2];
-        output[1]=a[l+1];
-        output[0]=a[r-1];
-        return output;
+
+
+// Initializing min and max to MAX and MIN values respectively for comaparison purpose
+
+        int min1=Integer.MAX_VALUE,min2=Integer.MAX_VALUE;
+
+        int max1=Integer.MIN_VALUE,max2=Integer.MIN_VALUE;
+
+        //min1,min2 = first,second minimum elements
+
+        //max1,max2 = first.second maximum elements
+
+
+
+//Try to dry run for array {2,1,3,4} VERY IMPORTANT
+
+//Traversing the array and updating max and min values
+
+        for(int i=0;i<n;i++){
+
+
+
+            //a[i] > first max
+
+            if(a[i]>max1){
+
+                int temp=max1;
+
+                max1=a[i];
+
+                max2=temp;
+
+            }
+
+            //a[i] > second max
+
+            else if(a[i]>max2){
+
+                max2=a[i];
+
+            }
+
+            //a[i] < first min
+
+            if(a[i]<min1){
+
+                int temp=min1;
+
+                min1=a[i];
+
+                min2=temp;
+
+            }
+
+            //a[i] <second min
+
+            else if(a[i]<min2){
+
+                min2=a[i];
+
+            }
+
+        }
+
+
+
+// Returning second maximum, second minimum element
+
+        return new int[] {max2,min2};
+
+
+
+
+
     }
 
-    public static void mergesort(int[] a,int l, int r){
 
-        if(l==r)
-            return;
-
-        int mid=(l+r)/2;
-        mergesort(a,l, mid);
-        mergesort(a,mid+1, r);
-        merge(a,l,mid,r);
-
-    }
-
-    public static void merge(int a[],int l, int mid, int r)
-    {
-        int p1=l;
-        int p2=mid+1;
-        int[] temp= new int[a.length];
-        int i=0;
-
-        while(p2<=r && p1<=mid)
-        {
-            if(a[p1]<a[p2])
-            {
-                temp[i]=a[p1];
-                i++;
-                p1++;
-            }
-            else if(a[p1]>a[p2])
-            {
-                temp[i]=a[p2];
-                i++;
-                p2++;
-            }
-
-        }
-
-        if(p1<=mid)
-        {
-            while(p1<=mid)
-            {
-                temp[i]=a[p1];
-                i++;
-                p1++;
-            }
-        }
-
-        if(p2<=r)
-        {
-            while(p2<=r)
-            {
-                temp[i]=a[p2];
-                i++;
-                p2++;
-            }
-        }
-
-        //replace to main array
-        int k=0;
-        for(int j=l;j<=r;j++)
-        {
-            a[j]=temp[k];
-            k++;
-        }
-    }
 
     public static void main(String[] a)
     {
